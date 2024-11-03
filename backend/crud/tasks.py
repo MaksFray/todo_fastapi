@@ -1,3 +1,6 @@
+from typing import Sequence
+
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Task
@@ -12,3 +15,8 @@ async def create_task(
     await session.commit()
     # await session.refresh(user)
     return task
+
+async def get_all_tasks(session: AsyncSession) -> Sequence[Task]:
+    stmt = select(Task).order_by(Task.id)
+    result = await session.scalars(stmt)
+    return result.all()

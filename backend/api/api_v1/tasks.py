@@ -26,3 +26,15 @@ async def create_user(
     return task
 
 
+@router.get("", response_model=list[TaskRead])
+async def get_all_task(
+session: Annotated[
+        AsyncSession,
+        Depends(db_helper.session_getter)
+    ],
+):
+    tasks = await tasks_crud.get_all_tasks(session=session)
+    return tasks
+
+
+

@@ -3,6 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette import status
 
 from core.models import db_helper, Task
 from core.schemas.tasks import TaskRead, TaskCreate, TaskUpdate
@@ -68,3 +69,13 @@ async def patch_task_by_id(
         task_update=task_update
     )
     return updated_task
+
+@router.delete("/{task_id}/", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_task(
+        session: Annotated[
+            AsyncSession,
+            Depends(db_helper.session_getter)
+        ],
+        task: Task = Depends(tasks_crud.task_by_id),
+) -> None:
+    await tasks_crud.delete_task(session=session, task=task)

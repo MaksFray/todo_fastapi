@@ -16,5 +16,5 @@ router.include_router(
 
 router.include_router(
     tasks_router,
-    prefix=settings.api.v1.tasks
+    prefix=settings.api.v1.tasks,
 )

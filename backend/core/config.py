@@ -8,7 +8,7 @@ class RunConfig(BaseModel):
 
 class ApiV1Prefix(BaseModel):
     prefix: str = "/v1"
-    users: str = "/users"
+    users: str = "/auth"
     tasks: str = "/tasks"
 
 class ApiPrefix(BaseModel):

@@ -70,7 +70,7 @@ async def patch_task_by_id(
     )
     return updated_task
 
-@router.delete("/{task_id}/", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_task(
         session: Annotated[
             AsyncSession,
